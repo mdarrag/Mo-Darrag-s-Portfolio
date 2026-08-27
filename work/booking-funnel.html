@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Booking funnel case study — Mo Darrag</title>
+<meta name="description" content="A booking-funnel teardown for a travel-experiences marketplace: 78.8% of all loss sits in one step, why Day Trips was the category to fix, three recommendations and the A/B test design.">
+<meta name="author" content="Mo Darrag">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1013" media="(prefers-color-scheme: dark)">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Three quarters of visitors never ask if the trip is available">
+<meta property="og:description" content="Where a marketplace booking funnel actually leaks, which category is worth fixing, and the experiment that would prove it.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2314161a'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='52' fill='%23faf8f5' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="../index.html">Mo Darrag<span>.</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html#work">Work</a>
+      <a href="../index.html#experience" class="nav-hide-sm">Experience</a>
+      <a href="../index.html#contact">Contact</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch colour theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="case-hero">
+    <div class="wrap wrap--narrow">
+      <a class="backlink" href="../index.html#work">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H6M11 18l-6-6 6-6"/></svg>
+        All work
+      </a>
+      <p class="eyebrow">Case study 01 · Booking funnel</p>
+      <h1>Three quarters of visitors never ask if the trip is available</h1>
+      <p class="case-hero__lede">
+        A conversion teardown for a travel-experiences marketplace. One click separates a 0.20%
+        booking rate from a 17.47% one — and nothing about it is a payment problem. This is how I
+        found it, why I bet the roadmap on the biggest category rather than the worst one, and
+        what would have told me I was wrong.
+      </p>
+
+      <dl class="case-facts">
+        <div>
+          <dt>Role</dt>
+          <dd>Sole author — analysis, UX audit, recommendations</dd>
+        </div>
+        <div>
+          <dt>Input</dt>
+          <dd>2,014-session dataset, 13 categories, 14 days</dd>
+        </div>
+        <div>
+          <dt>Method</dt>
+          <dd>Funnel analysis, competitive walkthrough, RICE, A/B design</dd>
+        </div>
+        <div>
+          <dt>Output</dt>
+          <dd>3 recommendations, 1 test design, measurement plan</dd>
+        </div>
+      </dl>
+
+      <p class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/></svg>
+        <span>
+          Written as a take-home exercise on a sample dataset supplied by the company. The platform
+          is left unnamed here; the analysis, the numbers and the reasoning are exactly as I
+          submitted them. Competitor observations come from walking the public products myself.
+        </span>
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap wrap--narrow prose">
+
+      <h2>The answer, in five lines</h2>
+      <p class="lede-para">
+        Of 2,014 product-page sessions, <strong>75% never click "Check availability."</strong> That
+        one click separates a 0.20% booking rate from a 17.47% one. Once a cart exists, 70% of
+        them become bookings.
+      </p>
+      <ol>
+        <li>The funnel has two big leaks, and neither of them is checkout.</li>
+        <li>I chose <strong>Day Trips</strong> on money at stake, not on the worst rate: 23.4% of sessions, 35.1% of booked value, €110 average booked price.</li>
+        <li>The Day Trips gap sits entirely at the availability gate — 20.55% against 26.01% for the other twelve categories. <em>Below</em> the gate it beats the platform on every step. Demand is fine; the page is where this breaks.</li>
+        <li>A day trip is a route, and the platform treats it as a place. Destination, travel time, pickup point and what's included all sit behind the "Check availability" button.</li>
+        <li>Fix search first, then fix the page. Sessions that reached the options already date-resolved added to cart at 37.8% against 16.7%.</li>
+      </ol>
+
+      <h2>Where the funnel actually leaks</h2>
+      <p>
+        Four steps, and the four rates multiply out to the end-to-end number exactly. The largest
+        single loss is 1,516 sessions that never ask whether the trip is available — four times the
+        size of the second leak. Payment is the healthiest part of the funnel.
+      </p>
+
+      <div class="viz reveal">
+        <p class="viz__title">The booking funnel, all 13 categories</p>
+        <p class="viz__sub">2,014 product-page sessions over 14 days. Bar length is sessions reaching the step; the percentage is of all visits.</p>
+        <div class="funnel">
+          <div class="funnel__row">
+            <span class="funnel__label">Visit</span>
+            <span class="funnel__track">
+              <span class="funnel__bar" style="width:100%; background:var(--step-1)" data-width></span>
+              <span class="funnel__value">2,014 <small>100%</small></span>
+            </span>
+          </div>
+          <div class="funnel__row">
+            <span class="funnel__label">Availability check</span>
+            <span class="funnel__track">
+              <span class="funnel__bar" style="width:24.73%; background:var(--step-2)" data-width></span>
+              <span class="funnel__value">498 <small>24.73%</small></span>
+            </span>
+          </div>
+          <div class="funnel__row">
+            <span class="funnel__label">Add to cart</span>
+            <span class="funnel__track">
+              <span class="funnel__bar" style="width:5.96%; background:var(--step-3)" data-width></span>
+              <span class="funnel__value">120 <small>5.96%</small></span>
+            </span>
+          </div>
+          <div class="funnel__row">
+            <span class="funnel__label">Checkout</span>
+            <span class="funnel__track">
+              <span class="funnel__bar" style="width:5.31%; background:var(--step-4)" data-width></span>
+              <span class="funnel__value">107 <small>5.31%</small></span>
+            </span>
+          </div>
+          <div class="funnel__row">
+            <span class="funnel__label">Booked</span>
+            <span class="funnel__track">
+              <span class="funnel__bar" style="width:4.47%; background:var(--step-5)" data-width></span>
+              <span class="funnel__value">90 <small>4.47%</small></span>
+            </span>
+          </div>
+        </div>
+        <p class="viz__note">
+          <strong>98.4% of every lost session goes in the first two steps.</strong>
+          Visit → availability 78.8% (1,516) · availability → cart 19.6% (378) ·
+          cart → checkout 0.7% (13) · checkout → booked 0.9% (17).
+          One point on step 1 is worth more than perfecting steps 3 and 4.
+        </p>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <caption>Step conversion, and the same four steps for Day Trips against the platform.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Step</th>
+              <th scope="col" class="num">All 13 categories</th>
+              <th scope="col" class="num">Day Trips</th>
+              <th scope="col" class="num">Relative</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="is-highlight">
+              <th scope="row">Visit → availability check</th>
+              <td class="num">24.73%</td>
+              <td class="num"><strong>20.55%</strong></td>
+              <td class="num">−17%</td>
+            </tr>
+            <tr>
+              <th scope="row">Availability → cart</th>
+              <td class="num">24.10%</td>
+              <td class="num">24.74%</td>
+              <td class="num">+3%</td>
+            </tr>
+            <tr>
+              <th scope="row">Cart → checkout</th>
+              <td class="num">89.17%</td>
+              <td class="num">87.50%</td>
+              <td class="num">−2%</td>
+            </tr>
+            <tr>
+              <th scope="row">Checkout → booked</th>
+              <td class="num">84.11%</td>
+              <td class="num">90.48%</td>
+              <td class="num">+8%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        A note I put in the deck rather than smoothing over: requiring every prior step gives
+        2,014 → 498 → 117 → 100 → 83, an end-to-end rate of 4.12%. The difference is nine sessions —
+        six that recorded a checkout and a booking with no add-to-cart flag, and three that booked
+        with no availability check. I used the looser definition and disclosed the nine.
+      </p>
+
+      <h2>A detour worth taking: the calendar isn't a funnel step</h2>
+      <p>
+        The brief implied a sequence — people picker, then calendar, then date selection, then
+        availability. Run as a sequence it breaks: the funnel would have to <em>expand</em> twice,
+        which is impossible. They are interactions inside the availability module, and only 10 of
+        the 90 bookings complete that chain.
+      </p>
+      <p>
+        Read as behaviour rather than as steps, they say something the funnel view hides.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <caption>Within the 498 sessions that checked availability.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Behaviour</th>
+              <th scope="col" class="num">Sessions</th>
+              <th scope="col" class="num">Booked</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Opened the people picker</th><td class="num">120</td><td class="num">10.00%</td></tr>
+            <tr><th scope="row">Did not</th><td class="num">378</td><td class="num">19.84%</td></tr>
+            <tr><th scope="row">Touched all three widgets</th><td class="num">99</td><td class="num">11.11%</td></tr>
+            <tr><th scope="row">Touched none of them</th><td class="num">278</td><td class="num">19.78%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="pull">
+        The travellers who fiddle with the date and party controls are the ones who can't find a
+        day that works. Working the controls is the signature of no-match, not of intent.
+        <cite>46 sessions opened a calendar without ever checking availability. Zero carts, zero bookings.</cite>
+      </p>
+
+      <h2>Why Day Trips, and not the categories that convert worse</h2>
+      <p>
+        The temptation is to fix the worst rate. Transfers converts at 1.28% and Multi-day at
+        1.33% — on one booking each, so those rates are noise, and between them they produced €105
+        of booked value. Fixing them moves nothing. Walking Tours has the worst gate rate of all
+        (19.29%) and the lowest value per session of any sizeable category (€0.51).
+      </p>
+
+      <div class="keynums reveal">
+        <div class="keynum"><b>472</b><span>sessions — 23.4% of all traffic, the largest single category</span></div>
+        <div class="keynum"><b>35.1%</b><span>of booked GMV, from 23% of the traffic</span></div>
+        <div class="keynum"><b>€110</b><span>average booked price, against €66 platform-wide</span></div>
+        <div class="keynum"><b>4.03%</b><span>conversion, against a 4.47% platform average</span></div>
+      </div>
+
+      <p>
+        Day Trips is the only category that is simultaneously the biggest traffic pool, the biggest
+        revenue pool, <em>and</em> below platform conversion. It generates <strong>€4.43 of booked
+        value per session against €2.96 platform-wide</strong>. And the fix travels: Bus Tours (236
+        sessions, 2.54% conversion) and Multi-day Trips share the same physics — fixed departures,
+        pickup points, an all-day commitment.
+      </p>
+
+      <div class="viz reveal">
+        <p class="viz__title">Day Trips is broken at exactly one step</p>
+        <p class="viz__sub">Step conversion rate, Day Trips against all 13 categories. Shared 0–100% scale.</p>
+        <div class="legend">
+          <span class="legend__item"><span class="legend__swatch" style="background:var(--accent)"></span>Day Trips</span>
+          <span class="legend__item"><span class="legend__swatch" style="background:var(--accent-2)"></span>All 13 categories</span>
+        </div>
+        <div class="bars">
+          <div class="bars__group">
+            <span class="bars__name">Visit →<br>availability check</span>
+            <span class="bars__pair">
+              <span class="bars__row"><span class="bars__bar" style="width:20.55%; background:var(--accent)" data-width></span><span class="bars__val">20.55%</span></span>
+              <span class="bars__row"><span class="bars__bar" style="width:24.73%; background:var(--accent-2)" data-width></span><span class="bars__val">24.73%</span></span>
+            </span>
+          </div>
+          <div class="bars__group">
+            <span class="bars__name">Availability →<br>add to cart</span>
+            <span class="bars__pair">
+              <span class="bars__row"><span class="bars__bar" style="width:24.74%; background:var(--accent)" data-width></span><span class="bars__val">24.74%</span></span>
+              <span class="bars__row"><span class="bars__bar" style="width:24.10%; background:var(--accent-2)" data-width></span><span class="bars__val">24.10%</span></span>
+            </span>
+          </div>
+          <div class="bars__group">
+            <span class="bars__name">Cart →<br>checkout</span>
+            <span class="bars__pair">
+              <span class="bars__row"><span class="bars__bar" style="width:87.50%; background:var(--accent)" data-width></span><span class="bars__val">87.50%</span></span>
+              <span class="bars__row"><span class="bars__bar" style="width:89.17%; background:var(--accent-2)" data-width></span><span class="bars__val">89.17%</span></span>
+            </span>
+          </div>
+          <div class="bars__group">
+            <span class="bars__name">Checkout →<br>booked</span>
+            <span class="bars__pair">
+              <span class="bars__row"><span class="bars__bar" style="width:90.48%; background:var(--accent)" data-width></span><span class="bars__val">90.48%</span></span>
+              <span class="bars__row"><span class="bars__bar" style="width:84.11%; background:var(--accent-2)" data-width></span><span class="bars__val">84.11%</span></span>
+            </span>
+          </div>
+        </div>
+        <p class="viz__note">
+          Day Trips is the only large category that is below average on step 1 and above average on
+          step 2. That is the cleanest evidence available that the problem is the page, not the
+          product.
+        </p>
+      </div>
+
+      <h2>The second dimension: who is losing, and where</h2>
+      <p>
+        Cutting Day Trips by device and by channel points at the same thing from two directions.
+        Mobile web is 49% of Day Trips sessions and 29% of its revenue.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <caption>Median booked value of a day trip, by surface.</caption>
+          <thead>
+            <tr><th scope="col">Surface</th><th scope="col" class="num">Median booked value</th><th scope="col" class="num">Revenue per session</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">App</th><td class="num">€143</td><td class="num">€7.77</td></tr>
+            <tr><th scope="row">Desktop</th><td class="num">€127</td><td class="num">—</td></tr>
+            <tr class="is-highlight"><th scope="row">Mobile web</th><td class="num"><strong>€60</strong></td><td class="num"><strong>€2.62</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Mobile web's <em>most expensive</em> booking in the fortnight sits below the app's median.
+        It books cheaper trips, not just fewer of them — and its availability-gate rate is 17.67%
+        against 27.05% in the app.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <caption>Day Trips by acquisition channel.</caption>
+          <thead>
+            <tr><th scope="col">Channel</th><th scope="col" class="num">Sessions</th><th scope="col" class="num">Availability rate</th><th scope="col" class="num">Conversion</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Direct &amp; branded</th><td class="num">142</td><td class="num">19.0%</td><td class="num">6.3%</td></tr>
+            <tr><th scope="row">CRM</th><td class="num">123</td><td class="num">26.8%</td><td class="num">4.1%</td></tr>
+            <tr><th scope="row">Paid search</th><td class="num">73</td><td class="num">16.4%</td><td class="num">4.1%</td></tr>
+            <tr><th scope="row">SEO</th><td class="num">70</td><td class="num">15.7%</td><td class="num">1.4%</td></tr>
+            <tr><th scope="row">Partnerships</th><td class="num">53</td><td class="num">18.9%</td><td class="num">0.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        Cold, non-branded traffic is 41.5% of Day Trips sessions and converts at 2.0%, against 5.3%
+        for direct and CRM. <strong>The people who arrive knowing nothing are exactly the people
+        the page doesn't brief.</strong>
+      </p>
+
+      <h2>What the traveller actually runs into</h2>
+      <p>
+        I booked a day trip out of Rome on three platforms and stopped before paying. A generic
+        heuristic sweep finds problems on any page; I used three lenses that find the problems
+        specific to a fixed-departure, option-priced, high-commitment product — which is what a day
+        trip is.
+      </p>
+      <ol>
+        <li><strong>Information clarity</strong> — is the answer to the traveller's next question available before they have to commit to anything?</li>
+        <li><strong>Cognitive load</strong> — how much work is it to compare the options and pick one?</li>
+        <li><strong>Expectation matching</strong> — does what I was promised match what I'm shown when it counts?</li>
+      </ol>
+
+      <h3>Search</h3>
+      <ul>
+        <li><strong>Cards carry no logistics.</strong> Title, duration, rating, a from-price. Not departure time, meeting point, whether pickup is included, group size, or the next available date — the four things that define a day trip. You can't shortlist; you have to open product pages one at a time.</li>
+        <li><strong>Filters are activity-generic, not category-native.</strong> On "day trips from Rome" the chips were Golf carts, For adults, For kids, Food &amp; drink, Tours on wheels, Photoshoots. None of them are destination, departure window, pickup or group size. A one-hour basilica entrance ticket ranked on page one.</li>
+        <li><strong>The initial search field asks for a destination and nothing else</strong>, which drops the traveller into a sea of near-identical options and makes comparison the traveller's job.</li>
+      </ul>
+
+      <h3>Product page</h3>
+      <ul>
+        <li><strong>Repeated input.</strong> Arriving with a date already set from search, you still have to click "Check availability" — and group size doesn't carry to the next product page. Comparing three trips means entering the same two things three times. Effort signals difficulty, and invisible friction becomes a real conversion killer.</li>
+        <li><strong>The page answers "is pickup included?" three different ways</strong> — the header says it depends on the option, the includes block lists hotel pickup right beside the exclusions, and the meeting point names a fixed square. It's the highest-anxiety question in the category and there is no single answer.</li>
+      </ul>
+
+      <h3>Checkout</h3>
+      <ul>
+        <li><strong>The price you're promised is not the price you're shown.</strong> A €81 advertised "from" price; €96.30 for the cheapest option actually bookable — +19% — with the sidebar still saying €81 on the same screen.</li>
+        <li><strong>Option paralysis.</strong> Three options at €96.30 / €152.00 / €1,900.00 — a 20× spread — with near-identical names differing by one town, truncated descriptions, no recommendation and no per-option availability. 51.5% of Day Trips availability-checkers check more than once; only 24.7% of them add to cart.</li>
+        <li><strong>An identity wall before logistics certainty.</strong> The first checkout screen asks for an email address under a 30-minute countdown, with no guest path, and the order summary never confirms the meeting point. We ask a traveller to identify themselves and pay for a 7am, twelve-hour, €96 commitment while "where do I stand at 7am" is still open.</li>
+      </ul>
+
+      <p class="pull">
+        A day trip is a route, and the platform treats it as a place.
+      </p>
+
+      <h3>Same trip, same operator, three platforms</h3>
+      <div class="table-scroll">
+        <table>
+          <caption>Walking the identical Pompeii day trip end to end on three marketplaces.</caption>
+          <thead>
+            <tr><th scope="col">Stage</th><th scope="col">This platform</th><th scope="col">Competitor A</th><th scope="col">Competitor B</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Search</th>
+              <td>Ranked grid. Chip filters cover activity themes, nothing for departure window, pickup or destination.</td>
+              <td><strong>Photo carousel per card, free-cancellation badge, filters adapt to the category.</strong></td>
+              <td>Curated rails rather than a ranked list. Time-of-day filter, and the only platform asking group size up front.</td>
+            </tr>
+            <tr>
+              <th scope="row">Product page, before a date</th>
+              <td>Options and prices stay hidden until you pick a date and party size.</td>
+              <td>Similar, but group size carries to the next product page.</td>
+              <td><strong>Answers before any date: meeting point named, ~12 hours, hosted in English, what's included, operator badged.</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">Options</th>
+              <td>Date gate first, then three cards at €96 / €152 / €1,900. No recommendation, one start time per option.</td>
+              <td>Clearer option differences, free cancellation highlighted.</td>
+              <td><strong>No date step at all. Real departure times, €79, 16 spots left. Sold-out departures struck through, not hidden.</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">Checkout</th>
+              <td>Email wall, 30-minute countdown, no guest path, meeting point never confirmed.</td>
+              <td><strong>Guest path, price breakdown, no countdown, meeting-point review, support phone and chat.</strong></td>
+              <td>Three numbered steps, no countdown, exact cancellation deadline — but also omits the meeting point.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Three recommendations</h2>
+
+      <article class="rec">
+        <div class="rec__head"><span class="rec__num">1</span><h3>Date-first search, carried through to the product page</h3></div>
+        <p>
+          Date and group-size fields in initial search, pre-filled rather than empty, carried with
+          the click. The product page opens already priced and bookable, and "Check availability"
+          becomes "Change dates". Products with no availability in the window drop out of the
+          result set rather than appearing and failing later. Party size persists page to page.
+        </p>
+        <dl>
+          <div><dt>Hypothesis</dt><dd>If purchasability is resolved before the traveller picks a product, more sessions reach a cart — because attention is spent only on trips that can actually be bought.</dd></div>
+          <div><dt>Primary metric</dt><dd>Visit → add to cart. Day Trips baseline 5.08%, platform 5.96%.</dd></div>
+          <div><dt>Estimated impact</dt><dd><strong>+21% relative.</strong> Ceiling is the observed 37.8% (date-resolved arrivals) against 16.7% — 13.1pp of headroom. Capturing 25 / 40 / 60% gives +13% / +21% / +32%.</dd></div>
+          <div><dt>What would make me wrong</dt><dd>Dropping unavailable products removes sessions that convert at 0% today, so the rate can rise with no extra carts. Watch absolute carts per search, not the rate.</dd></div>
+        </dl>
+      </article>
+
+      <article class="rec">
+        <div class="rec__head"><span class="rec__num">2</span><h3>The "Day Plan" card, above the fold</h3></div>
+        <p>
+          A fixed card answering the four questions that decide a day out — departure window,
+          return window, travel time versus time on site, and a two-column included / not-included
+          list — all resolved before a date is chosen. Pickup resolved to one of three honest
+          states: hotel pickup in named zones, meeting point only, or pickup time confirmed after
+          booking. Anything but "depends on the option."
+        </p>
+        <dl>
+          <div><dt>Evidence</dt><dd>375 of 472 Day Trips sessions (79.4%) never click Check availability, and zero of them book. Post-gate, Day Trips already beats the platform on every measure.</dd></div>
+          <div><dt>Primary metric</dt><dd>Visit → availability-check rate. Baseline 20.55% against a 24.73% platform rate.</dd></div>
+          <div><dt>Estimated impact</dt><dd><strong>+5 to +8% relative</strong> on category conversion, capturing 25–40% of the 4.2pp gate headroom. Same card fits Bus Tours and Multi-day Trips — together 39% of the sample.</dd></div>
+          <div><dt>What would make me wrong</dt><dd>We are making a promise. If suppliers don't meet it, we have bought conversion with refunds — which is why cancellation rate blocks the ship rather than getting monitored.</dd></div>
+        </dl>
+      </article>
+
+      <article class="rec">
+        <div class="rec__head"><span class="rec__num">3</span><h3>The no-match rescue</h3></div>
+        <p>
+          A day trip runs on fixed days from a fixed point, so "no suitable option" is a routine
+          outcome, not an edge case — and today it ends the session. On no-match only, show the
+          nearest bookable departures for the same product, same-route products from other
+          suppliers on the traveller's date, and the operating pattern in plain words: "runs Tue,
+          Thu, Sat."
+        </p>
+        <dl>
+          <div><dt>Hypothesis</dt><dd>The traveller has lost the route to the trip, not the interest in it.</dd></div>
+          <div><dt>Primary metric</dt><dd>Availability check → add to cart. Day Trips baseline 24.74%.</dd></div>
+          <div><dt>Estimated impact</dt><dd><strong>+17 to +21% relative</strong>, if no-matches are ~15% of availability sessions and the module recovers a quarter to a third of them.</dd></div>
+          <div><dt>What would make me wrong</dt><dd>It argues against my own cognitive-load lens if shown by default — it must be triggered by failure only. And it sends people off the page by design, so page conversion is the wrong read.</dd></div>
+        </dl>
+      </article>
+
+      <h3>How I ranked them</h3>
+      <div class="table-scroll">
+        <table>
+          <caption>RICE, scoped to Day Trips. Reach = sessions in the 14-day sample on the surface the change ships on. Impact 0.25–3, effort in person-months.</caption>
+          <thead>
+            <tr><th scope="col">Bet</th><th scope="col" class="num">Reach</th><th scope="col" class="num">Impact</th><th scope="col" class="num">Confidence</th><th scope="col" class="num">Effort</th><th scope="col" class="num">RICE</th></tr>
+          </thead>
+          <tbody>
+            <tr class="is-highlight"><th scope="row">1 · Date-first search</th><td class="num">472</td><td class="num">3.0</td><td class="num">70%</td><td class="num">4</td><td class="num"><strong>248</strong></td></tr>
+            <tr><th scope="row">2 · The Day Plan card</th><td class="num">472</td><td class="num">2.0</td><td class="num">60%</td><td class="num">3</td><td class="num">189</td></tr>
+            <tr><th scope="row">3 · The no-match rescue</th><td class="num">73</td><td class="num">1.0</td><td class="num">40%</td><td class="num">2</td><td class="num">15</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Confidence is where the honesty lives. Rec 1 sits at 70% because its strongest data point —
+        date-resolved sessions add to cart at 37.8% against 16.7% — carries a real confound:
+        selecting a date may be a marker of intent rather than a cause of conversion. That is
+        precisely why I took 25% of the headroom rather than 40%, and why I put no euro figure on
+        it. Rec 3 sits at 40% because Day Trips converts availability → cart <em>above</em> the
+        platform average, which is itself the cleanest evidence that Recs 1 and 2 target the right
+        step.
+      </p>
+
+      <h2>The experiment</h2>
+      <p>
+        One change, two variants, an even split, and a primary metric chosen before launch.
+      </p>
+      <ul>
+        <li><strong>Control:</strong> today's search. The date filter lives in second-layer filters and availability still needs a manual click.</li>
+        <li><strong>Treatment:</strong> initial search asks Where, When and Who; results are trimmed to those parameters; clicking through carries them and resolves availability automatically.</li>
+        <li><strong>Audience:</strong> every session landing on search — all devices, new and returning.</li>
+        <li><strong>Primary KPI:</strong> visit → cart, platform baseline 5.96%. <strong>MDE</strong> +13% relative. <strong>Sample</strong> 15,545 per variant, minimum two full weeks so both weekend cycles are covered.</li>
+      </ul>
+
+      <h3>Guardrails — any breach blocks the ship</h3>
+      <ul>
+        <li><strong>Absolute carts per 1,000 sessions</strong>, not just the rate. Removing unavailable products removes sessions that convert at 0% today, so the rate can rise on a smaller, better-matched population.</li>
+        <li><strong>Products viewed per session and supplier feedback.</strong> A filter that hides supply is a commercial decision, not only a design one.</li>
+        <li><strong>SEO and paid:</strong> indexed listing coverage, organic landing sessions, landing-page bounce.</li>
+        <li><strong>Cart → booking</strong>, to catch carts built on dates the traveller didn't really choose.</li>
+      </ul>
+
+      <h3>Decision rule, written before launch</h3>
+      <p>
+        <strong>Assumption check first.</strong> The share of product-page arrivals that are
+        date-resolved must rise sharply from its 38% baseline. If it doesn't, the feature didn't
+        ship and the test is void. <strong>Then:</strong> if that share rises and visit → cart does
+        not move, date selection was a marker of intent and not a cause — I read a correlation as a
+        mechanism, and I would say so rather than re-cut the data until it agreed with me.
+      </p>
+
+      <h2>What I'd watch after it ships</h2>
+      <p>
+        The trip happens weeks after the booking, so most of the risk in this change lands
+        <em>after</em> the experiment window closes.
+      </p>
+      <div class="table-scroll">
+        <table>
+          <caption>Post-launch measurement plan.</caption>
+          <thead>
+            <tr><th scope="col">When</th><th scope="col">What I measure</th><th scope="col">Why it matters</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Week 0–8</th>
+              <td>Hold 10% of traffic on control.</td>
+              <td>Tells me whether the effect lasts, and leaves a clean baseline if a guardrail moves later.</td>
+            </tr>
+            <tr>
+              <th scope="row">Week 1</th>
+              <td>Re-baseline the availability gate — the event now fires without traveller action.</td>
+              <td>Shipping this quietly destroys the meaning of the metric Rec 2 was measured on, and six months later someone tests that step and reads noise.</td>
+            </tr>
+            <tr>
+              <th scope="row">Week 2–8</th>
+              <td>Rolling 60-day cohort keyed to <em>travel</em> date: cart → booking, cancellation and refund rate, stale-availability errors.</td>
+              <td>A date carried automatically might not be a date anyone actually chose. That shows up as refunds, weeks after the test closed.</td>
+            </tr>
+            <tr>
+              <th scope="row">Ongoing</th>
+              <td>Supplier impressions and organic landing sessions.</td>
+              <td>Hiding unavailable products permanently changes what is discoverable.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>What this case is really about</h2>
+      <p>
+        The dataset offered an easy answer — fix the worst-converting category — and a comfortable
+        one: blame checkout. Neither survives contact with the numbers. What the analysis actually
+        rewards is asking which loss is <em>large</em>, which one you can explain, and which
+        explanation you could be wrong about. The final deck says out loud where a correlation
+        might be masquerading as a mechanism, and names the reading of the results that would
+        make me retract the recommendation. That's the part I'd want a hiring manager to read.
+      </p>
+
+    </div>
+  </section>
+
+  <section class="next-case">
+    <div class="wrap wrap--narrow">
+      <a href="logistics-strategy.html">
+        <div>
+          <p class="eyebrow">Next case study</p>
+          <h2>A first year as Group Product Manager, written down</h2>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <p>© <span id="year">2026</span> Mo Darrag — Berlin</p>
+    <p><a href="../index.html">Back to portfolio</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/site.js" defer></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
