@@ -168,7 +168,7 @@ img, svg { max-width: 100%; }
 .wrap--narrow { max-width: 900px; }
 
 section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-section[id] { scroll-margin-top: 80px; }
+section[id] { scroll-margin-top: 88px; }
 
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
@@ -222,15 +222,18 @@ section[id] { scroll-margin-top: 80px; }
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  min-height: 64px;
+  min-height: 72px;
 }
 
 .brand {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  /* Scales with the viewport so it reads large on desktop without
+     crowding the nav on a narrow screen. */
+  font-size: clamp(1.4rem, 1.15rem + .9vw, 1.75rem);
+  line-height: 1;
   color: var(--ink);
   text-decoration: none;
-  letter-spacing: -.01em;
+  letter-spacing: -.015em;
   white-space: nowrap;
 }
 .brand span { color: var(--ink-3); }
@@ -486,7 +489,9 @@ section[id] { scroll-margin-top: 80px; }
 
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* min() so the 320px floor can't force a track wider than the viewport
+     on a small phone — a bare minmax(320px, 1fr) overflows at 320px wide. */
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 1.5rem;
   margin-top: 2.5rem;
 }
