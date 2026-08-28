@@ -168,7 +168,7 @@ img, svg { max-width: 100%; }
 .wrap--narrow { max-width: 900px; }
 
 section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-section[id] { scroll-margin-top: 96px; }
+section[id] { scroll-margin-top: 104px; }
 
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
@@ -218,18 +218,21 @@ section[id] { scroll-margin-top: 96px; }
 }
 .site-header[data-stuck="true"] { border-bottom-color: var(--line); }
 
+/* Height stays constant. The header is sticky and therefore still in normal
+   flow, so shrinking it on scroll pulls every following element upward — a
+   36px jolt the instant you scroll. Not worth it. */
 .site-header__inner {
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  min-height: 80px;
+  min-height: clamp(72px, 7vw, 92px);
 }
 
 .brand {
   font-family: var(--font-display);
-  /* Grows on desktop where there is room; the low floor keeps it off the
-     nav on a small phone, where the header is tight. */
-  font-size: clamp(1.4rem, .9rem + 1.8vw, 2.1rem);
+  /* Large where there is room; the floor is tuned so the name never crowds
+     the nav on a small phone. */
+  font-size: clamp(1.4rem, .55rem + 3.2vw, 2.75rem);
   line-height: 1;
   color: var(--ink);
   text-decoration: none;
@@ -348,28 +351,15 @@ section[id] { scroll-margin-top: 96px; }
   box-shadow: 0 0 0 3px color-mix(in srgb, #1baf7a 22%, transparent);
 }
 
-/* The name is the headline. Size alone carries the hierarchy down to the
-   tagline and the lede, so all three can stay in the same ink family. */
 .hero h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(3.25rem, 8.5vw, 5.5rem);
-  line-height: 1;
-  letter-spacing: -.03em;
-  margin-bottom: .5rem;
+  font-size: clamp(2.6rem, 7.5vw, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  margin-bottom: 1.25rem;
 }
-
-.hero__tagline {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(1.5rem, 3.4vw, 2.15rem);
-  line-height: 1.15;
-  letter-spacing: -.015em;
-  color: var(--ink-2);
-  max-width: 22ch;
-  margin-bottom: 1.5rem;
-}
-.hero__tagline em {
+.hero h1 em {
   font-style: italic;
   color: var(--accent-text);
 }
