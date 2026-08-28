@@ -26,12 +26,22 @@ python3 -m http.server 8000
 
 ## Deploying
 
-**GitHub Pages** — Settings → Pages → Source: *Deploy from a branch*, pick the branch and `/ (root)`.
-The site is then live at `https://<user>.github.io/<repo>/`. For a custom domain, add a `CNAME`
-file containing the domain and point a DNS record at GitHub Pages.
+**GitHub Pages.** Pages will not serve a *private* repository unless the account is on GitHub
+Enterprise Cloud — that is what the "upgrade" prompt means. On a public repository it is free on
+every plan. So: Settings → General → Change visibility → public, then Settings → Pages → Source:
+*Deploy from a branch*, pick the branch and `/ (root)`.
 
-Netlify, Vercel and Cloudflare Pages all work with no configuration — publish directory is the
-repository root, build command is empty.
+The site is then live at `https://<user>.github.io/<repo>/`. Every link and asset path here is
+relative, so it works both under that subpath and at a domain root — verified by serving the whole
+site from a subdirectory. Two ways to get a shorter URL:
+
+- Rename the repository to `<user>.github.io`, which GitHub serves at `https://<user>.github.io/`.
+- Add a `CNAME` file containing your domain and point a DNS record at GitHub Pages.
+
+**Keeping the repository private** is possible on any free tier that supports private repos —
+Cloudflare Pages, Netlify or Vercel. Connect the repo, leave the build command empty and set the
+output directory to `/`. Note this only hides the source: the published site is publicly reachable
+either way.
 
 ## Design notes
 
