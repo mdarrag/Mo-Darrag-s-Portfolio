@@ -47,6 +47,29 @@
     window.addEventListener('scroll', setStuck, { passive: true });
   }
 
+  /* --- Company logos, with the name as a fallback --------------------- */
+
+  /* A missing or broken logo file must never show a broken-image icon.
+     Swap the <img> for its alt text, which the parent already styles as a
+     wordmark — so the row looks exactly as it did before any logo existed. */
+  function useWordmark(img) {
+    if (!img || img.dataset.swapped) return;
+    img.dataset.swapped = '1';
+    img.replaceWith(document.createTextNode(img.alt || ''));
+  }
+
+  // Failures that happen after this script runs. Error events don't bubble,
+  // so listen in the capture phase.
+  document.addEventListener('error', function (event) {
+    var el = event.target;
+    if (el && el.tagName === 'IMG' && el.classList.contains('companies__logo')) useWordmark(el);
+  }, true);
+
+  // Failures that already happened while the document was parsing.
+  Array.prototype.forEach.call(document.querySelectorAll('.companies__logo'), function (img) {
+    if (img.complete && img.naturalWidth === 0) useWordmark(img);
+  });
+
   /* --- Reveal on scroll, and chart bars that grow when seen ----------- */
 
   /* Bars carry their real width inline, so they are correct with JS off.

@@ -440,11 +440,46 @@ section[id] { scroll-margin-top: 80px; }
   font-weight: 600;
   margin-right: .5rem;
 }
+/* Each item holds a logo image; if the file is missing the script swaps in
+   the company name, which this rule already styles as a wordmark. */
 .companies__item {
   font-family: var(--font-display);
   font-size: 1.15rem;
   color: var(--ink-2);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Logos differ wildly in aspect ratio, so cap both axes and let each one
+   sit at its own optical size via --logo-h rather than a shared height. */
+/* Height is set, not capped: an SVG with only a viewBox has no intrinsic
+   size, and height:auto + max-height collapses it to nothing. Width then
+   follows the aspect ratio, and object-fit letterboxes anything too wide. */
+.companies__logo {
+  height: var(--logo-h, 24px);
+  width: auto;
+  max-width: 132px;
+  object-fit: contain;
+  object-position: left center;
+  opacity: .72;
+  transition: opacity .2s ease, filter .2s ease;
+}
+.companies__item:hover .companies__logo { opacity: 1; }
+
+/* Dark mode: most brand logos are dark-on-transparent, so lift them.
+   A logo that already reads well on dark opts out with class="is-light". */
+:root[data-theme="dark"] .companies__logo:not(.is-light) {
+  filter: brightness(0) invert(1);
+  opacity: .68;
+}
+:root[data-theme="dark"] .companies__item:hover .companies__logo:not(.is-light) { opacity: .95; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .companies__logo:not(.is-light) {
+    filter: brightness(0) invert(1);
+    opacity: .68;
+  }
+  :root:not([data-theme="light"]) .companies__item:hover .companies__logo:not(.is-light) { opacity: .95; }
 }
 
 /* --- Work cards ---------------------------------------------------------- */
