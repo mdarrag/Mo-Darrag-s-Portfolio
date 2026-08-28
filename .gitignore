@@ -1,2 +1,5 @@
 node_modules/
 .DS_Store
+
+# Local preview scratch — font mirror used to render the site offline
+.fontcache/
