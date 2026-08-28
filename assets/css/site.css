@@ -168,7 +168,7 @@ img, svg { max-width: 100%; }
 .wrap--narrow { max-width: 900px; }
 
 section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-section[id] { scroll-margin-top: 88px; }
+section[id] { scroll-margin-top: 96px; }
 
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
@@ -222,14 +222,14 @@ section[id] { scroll-margin-top: 88px; }
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  min-height: 72px;
+  min-height: 80px;
 }
 
 .brand {
   font-family: var(--font-display);
-  /* Scales with the viewport so it reads large on desktop without
-     crowding the nav on a narrow screen. */
-  font-size: clamp(1.4rem, 1.15rem + .9vw, 1.75rem);
+  /* Grows on desktop where there is room; the low floor keeps it off the
+     nav on a small phone, where the header is tight. */
+  font-size: clamp(1.4rem, .9rem + 1.8vw, 2.1rem);
   line-height: 1;
   color: var(--ink);
   text-decoration: none;
