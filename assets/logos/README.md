@@ -42,9 +42,10 @@ Processing applied to the originals:
   is why the tile has rounded corners.
 - **smava** — arrived with a transparent background; flattened onto white.
 - **Customer Alliance** — already a mark on white, used as supplied.
-- **Urban Sports Club** — arrived as a lockup: the flower mark above "wellhub"
-  and "URBAN SPORTS CLUB". Cropped to the flower, because at 36px the text
-  below it was an unreadable smudge, and the name is shown beside the tile.
+- **Urban Sports Club** — the Ü mark, supplied as a WebP with a wide white
+  margin. Trimmed to the mark and re-squared so it carries the same optical
+  weight as the others. (An earlier version used the Wellhub flower from a
+  lockup; this replaced it.)
 - **Just Eat Takeaway** — arrived as a wide transparent lockup, the house mark
   beside "JUST EAT Takeaway.com". Cropped to the house so it matches the other
   four square tiles, then flattened onto white to avoid dark fringing where its
@@ -54,7 +55,7 @@ Processing applied to the originals:
 
 An earlier version recoloured logos to white in dark mode. That does not work
 for these files: Careem's background is part of the artwork, and the Urban
-Sports Club original has black text baked in that would vanish on a dark page.
+Sports Club mark is black, which would vanish on a dark page.
 So every mark sits on a constant white tile in both themes — the same
 convention app icons use — and keeps its real brand colours.
 
