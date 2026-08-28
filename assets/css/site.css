@@ -348,15 +348,28 @@ section[id] { scroll-margin-top: 96px; }
   box-shadow: 0 0 0 3px color-mix(in srgb, #1baf7a 22%, transparent);
 }
 
+/* The name is the headline. Size alone carries the hierarchy down to the
+   tagline and the lede, so all three can stay in the same ink family. */
 .hero h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.6rem, 7.5vw, 4.75rem);
-  line-height: 1.02;
-  letter-spacing: -.025em;
-  margin-bottom: 1.25rem;
+  font-size: clamp(3.25rem, 8.5vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: -.03em;
+  margin-bottom: .5rem;
 }
-.hero h1 em {
+
+.hero__tagline {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  color: var(--ink-2);
+  max-width: 22ch;
+  margin-bottom: 1.5rem;
+}
+.hero__tagline em {
   font-style: italic;
   color: var(--accent-text);
 }
