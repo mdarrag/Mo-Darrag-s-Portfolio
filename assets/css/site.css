@@ -168,7 +168,7 @@ img, svg { max-width: 100%; }
 .wrap--narrow { max-width: 900px; }
 
 section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-section[id] { scroll-margin-top: 104px; }
+section[id] { scroll-margin-top: clamp(84px, 9vw + 12px, 132px); }
 
 .rule { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
@@ -225,14 +225,14 @@ section[id] { scroll-margin-top: 104px; }
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  min-height: clamp(72px, 7vw, 92px);
+  min-height: clamp(72px, 9vw, 120px);
 }
 
 .brand {
   font-family: var(--font-display);
   /* Large where there is room; the floor is tuned so the name never crowds
      the nav on a small phone. */
-  font-size: clamp(1.4rem, .55rem + 3.2vw, 2.75rem);
+  font-size: clamp(1.4rem, .3rem + 4.6vw, 4rem);
   line-height: 1;
   color: var(--ink);
   text-decoration: none;
