@@ -1,7 +1,9 @@
 # Company logos
 
-Drop the logo files in this folder using these **exact** filenames. The home page
-already points at them:
+The "Product at" row on the home page currently shows company **names**, set as
+wordmarks. Adding a real logo is two steps, per company.
+
+**1. Put the file here.** Suggested names:
 
 | File | Company |
 |---|---|
@@ -11,9 +13,24 @@ already points at them:
 | `customer-alliance.svg` | Customer Alliance |
 | `careem.svg` | Careem |
 
-Until a file exists, that slot falls back to the company name set as a wordmark —
-which is exactly how the row looked before. So you can add them one at a time and
-nothing ever looks broken in between.
+**2. Swap that company's line** in `index.html` (search for `companies__item`):
+
+```html
+<!-- from -->
+<span class="companies__item">smava</span>
+<!-- to -->
+<span class="companies__item"><img class="companies__logo"
+  src="assets/logos/smava.svg" alt="smava" style="--logo-h:22px"></span>
+```
+
+Do them one at a time — the untouched companies stay as wordmarks and the row still
+reads correctly with a mix of both.
+
+The page deliberately does **not** reference logo files before they exist: pointing
+at a missing file would mean the row only avoids broken-image icons if JavaScript
+runs, and nothing on this site should depend on that. (There is still a script-level
+safety net for a logo that is referenced but fails to load — a misnamed or corrupt
+file falls back to the name rather than showing a broken icon.)
 
 ## What format to use
 

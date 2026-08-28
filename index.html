@@ -126,14 +126,21 @@
   <div class="companies">
     <div class="wrap companies__inner">
       <p class="companies__label">Product at</p>
-      <!-- Drop logo files into assets/logos/ using these exact filenames.
-           Until then each one falls back to the company name as a wordmark.
-           See assets/logos/README.md. -->
-      <span class="companies__item"><img class="companies__logo" src="assets/logos/just-eat-takeaway.svg" alt="Just Eat Takeaway" loading="lazy" style="--logo-h:26px"></span>
-      <span class="companies__item"><img class="companies__logo" src="assets/logos/urban-sports-club.svg" alt="Urban Sports Club" loading="lazy" style="--logo-h:26px"></span>
-      <span class="companies__item"><img class="companies__logo" src="assets/logos/smava.svg" alt="smava" loading="lazy" style="--logo-h:22px"></span>
-      <span class="companies__item"><img class="companies__logo" src="assets/logos/customer-alliance.svg" alt="Customer Alliance" loading="lazy" style="--logo-h:24px"></span>
-      <span class="companies__item"><img class="companies__logo" src="assets/logos/careem.svg" alt="Careem" loading="lazy" style="--logo-h:24px"></span>
+
+      <!-- To show a real logo: put the file in assets/logos/, then replace that
+           company's line below with an <img>, keeping the wrapping <span>:
+
+           <span class="companies__item"><img class="companies__logo"
+             src="assets/logos/smava.svg" alt="smava" style="--logo-h:22px"></span>
+
+           Swap one at a time — the rest stay as wordmarks and the row still
+           reads correctly. Details in assets/logos/README.md. -->
+
+      <span class="companies__item">Just Eat Takeaway</span>
+      <span class="companies__item">Urban Sports Club</span>
+      <span class="companies__item">smava</span>
+      <span class="companies__item">Customer Alliance</span>
+      <span class="companies__item">Careem</span>
     </div>
   </div>
 
