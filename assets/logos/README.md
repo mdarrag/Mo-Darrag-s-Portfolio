@@ -4,14 +4,14 @@ The "Product at" row shows a square logo tile beside each company name.
 
 | File | Company |
 |---|---|
+| `just-eat-takeaway.png` | Just Eat Takeaway |
 | `urban-sports-club.png` | Urban Sports Club |
 | `smava.png` | smava |
 | `customer-alliance.png` | Customer Alliance |
 | `careem.png` | Careem |
-| *(none yet)* | **Just Eat Takeaway** — shows its name only |
 
-A company with no file simply shows its name, which is how Just Eat Takeaway
-currently renders. Nothing looks broken in the meantime.
+A company with no file simply shows its name, so the row never looks broken
+while one is missing.
 
 ## Adding one
 
@@ -45,6 +45,10 @@ Processing applied to the originals:
 - **Urban Sports Club** — arrived as a lockup: the flower mark above "wellhub"
   and "URBAN SPORTS CLUB". Cropped to the flower, because at 36px the text
   below it was an unreadable smudge, and the name is shown beside the tile.
+- **Just Eat Takeaway** — arrived as a wide transparent lockup, the house mark
+  beside "JUST EAT Takeaway.com". Cropped to the house so it matches the other
+  four square tiles, then flattened onto white to avoid dark fringing where its
+  antialiased orange edges meet the tile.
 
 ## Why the tiles are always light
 
