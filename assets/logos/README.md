@@ -1,73 +1,66 @@
 # Company logos
 
-The "Product at" row on the home page currently shows company **names**, set as
-wordmarks. Adding a real logo is two steps, per company.
-
-**1. Put the file here.** Suggested names:
+The "Product at" row shows a square logo tile beside each company name.
 
 | File | Company |
 |---|---|
-| `just-eat-takeaway.svg` | Just Eat Takeaway |
-| `urban-sports-club.svg` | Urban Sports Club |
-| `smava.svg` | smava |
-| `customer-alliance.svg` | Customer Alliance |
-| `careem.svg` | Careem |
+| `urban-sports-club.png` | Urban Sports Club |
+| `smava.png` | smava |
+| `customer-alliance.png` | Customer Alliance |
+| `careem.png` | Careem |
+| *(none yet)* | **Just Eat Takeaway** — shows its name only |
 
-**2. Swap that company's line** in `index.html` (search for `companies__item`):
+A company with no file simply shows its name, which is how Just Eat Takeaway
+currently renders. Nothing looks broken in the meantime.
+
+## Adding one
+
+Drop a square image in here, then add the `<img>` to that company's line in
+`index.html` (search for `companies__item`):
 
 ```html
 <!-- from -->
-<span class="companies__item">smava</span>
+<span class="companies__item">Just Eat Takeaway</span>
 <!-- to -->
 <span class="companies__item"><img class="companies__logo"
-  src="assets/logos/smava.svg" alt="smava" style="--logo-h:22px"></span>
+  src="assets/logos/just-eat-takeaway.png" alt="" width="36" height="36"
+  loading="lazy">Just Eat Takeaway</span>
 ```
 
-Do them one at a time — the untouched companies stay as wordmarks and the row still
-reads correctly with a mix of both.
+`alt` is intentionally empty: the company name sits right beside the mark, so
+a screen reader announcing it twice would be noise.
 
-The page deliberately does **not** reference logo files before they exist: pointing
-at a missing file would mean the row only avoids broken-image icons if JavaScript
-runs, and nothing on this site should depend on that. (There is still a script-level
-safety net for a logo that is referenced but fails to load — a misnamed or corrupt
-file falls back to the name rather than showing a broken icon.)
+## What the files are
 
-## What format to use
+Each is a **144×144 PNG** — four times the 36px display size, so it stays sharp
+on high-density screens. The source images supplied were square app-icon style
+marks, so they are presented as tiles rather than as inline wordmarks.
 
-**SVG is much better than PNG here.** It stays sharp on any screen, the files are
-tiny, and the dark-mode treatment below works cleanly on it. Most companies publish
-one on a `/press`, `/brand` or `/media` page. If you can only find a PNG, use a
-**transparent** one at roughly 3× the display size (so ~500px wide), and change the
-extension in `index.html` to match.
+Processing applied to the originals:
 
-## Sizing
+- **Careem** — a full-bleed green gradient. Fills its tile edge to edge, which
+  is why the tile has rounded corners.
+- **smava** — arrived with a transparent background; flattened onto white.
+- **Customer Alliance** — already a mark on white, used as supplied.
+- **Urban Sports Club** — arrived as a lockup: the flower mark above "wellhub"
+  and "URBAN SPORTS CLUB". Cropped to the flower, because at 36px the text
+  below it was an unreadable smudge, and the name is shown beside the tile.
 
-Logos vary a lot in shape — a long wordmark and a square mark set to the same height
-look nothing alike. Each one therefore carries its own optical height in
-`index.html`:
+## Why the tiles are always light
 
-```html
-<img class="companies__logo" src="assets/logos/smava.svg" alt="smava" style="--logo-h:22px">
-```
+An earlier version recoloured logos to white in dark mode. That does not work
+for these files: Careem's background is part of the artwork, and the Urban
+Sports Club original has black text baked in that would vanish on a dark page.
+So every mark sits on a constant white tile in both themes — the same
+convention app icons use — and keeps its real brand colours.
 
-Nudge that number per logo until the row looks evenly weighted. Width is capped at
-132px regardless.
-
-## Dark mode
-
-By default a logo is inverted to white in dark mode, which is right for the usual
-dark-on-transparent logo. If one is already light-coloured and comes out wrong, add
-`is-light` so it renders untouched:
-
-```html
-<img class="companies__logo is-light" src="assets/logos/careem.svg" alt="Careem">
-```
-
-Full-colour logos also survive `is-light` — they just keep their brand colours in
-both themes.
+If you later get a **transparent single-colour SVG** for a company, it could be
+recoloured per theme instead. That would be a different treatment from these
+four, so it is worth doing for all of them or none.
 
 ## A note on using them
 
-Showing employer logos to say factually where you have worked is normal practice on
-a personal site. Keep them unmodified, don't imply any of these companies endorse
-you or the site, and if a company's brand guidelines say otherwise, follow those.
+Showing employer logos to say factually where you have worked is normal practice
+on a personal site. Keep them unmodified beyond fitting them to the tile, don't
+imply any of these companies endorse you, and if a company's brand guidelines
+say otherwise, follow those.

@@ -47,27 +47,27 @@
     window.addEventListener('scroll', setStuck, { passive: true });
   }
 
-  /* --- Company logos, with the name as a fallback --------------------- */
+  /* --- Company logos -------------------------------------------------- */
 
-  /* A missing or broken logo file must never show a broken-image icon.
-     Swap the <img> for its alt text, which the parent already styles as a
-     wordmark — so the row looks exactly as it did before any logo existed. */
-  function useWordmark(img) {
-    if (!img || img.dataset.swapped) return;
-    img.dataset.swapped = '1';
-    img.replaceWith(document.createTextNode(img.alt || ''));
+  /* A logo that fails to load must never leave a broken-image icon in the
+     row. Drop the <img>; the company name beside it carries the meaning on
+     its own, which is also why the images are marked decorative. */
+  function dropBrokenLogo(img) {
+    if (!img || img.dataset.dropped) return;
+    img.dataset.dropped = '1';
+    img.remove();
   }
 
   // Failures that happen after this script runs. Error events don't bubble,
   // so listen in the capture phase.
   document.addEventListener('error', function (event) {
     var el = event.target;
-    if (el && el.tagName === 'IMG' && el.classList.contains('companies__logo')) useWordmark(el);
+    if (el && el.tagName === 'IMG' && el.classList.contains('companies__logo')) dropBrokenLogo(el);
   }, true);
 
   // Failures that already happened while the document was parsing.
   Array.prototype.forEach.call(document.querySelectorAll('.companies__logo'), function (img) {
-    if (img.complete && img.naturalWidth === 0) useWordmark(img);
+    if (img.complete && img.naturalWidth === 0) dropBrokenLogo(img);
   });
 
   /* --- Reveal on scroll, and chart bars that grow when seen ----------- */

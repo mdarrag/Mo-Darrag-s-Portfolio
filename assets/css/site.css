@@ -446,8 +446,8 @@ section[id] { scroll-margin-top: clamp(84px, 9vw + 12px, 132px); }
   font-weight: 600;
   margin-right: .5rem;
 }
-/* Each item holds a logo image; if the file is missing the script swaps in
-   the company name, which this rule already styles as a wordmark. */
+/* Each company is an optional logo tile plus its name. Where no logo file
+   exists the name alone still reads correctly. */
 .companies__item {
   font-family: var(--font-display);
   font-size: 1.15rem;
@@ -455,37 +455,20 @@ section[id] { scroll-margin-top: clamp(84px, 9vw + 12px, 132px); }
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
+  gap: .6rem;
 }
 
-/* Logos differ wildly in aspect ratio, so cap both axes and let each one
-   sit at its own optical size via --logo-h rather than a shared height. */
-/* Height is set, not capped: an SVG with only a viewBox has no intrinsic
-   size, and height:auto + max-height collapses it to nothing. Width then
-   follows the aspect ratio, and object-fit letterboxes anything too wide. */
+/* The supplied marks are square app icons with backgrounds baked in — one is
+   a full-bleed gradient, another has black text on white. So they sit on a
+   constant light tile in both themes rather than being recoloured. */
 .companies__logo {
-  height: var(--logo-h, 24px);
-  width: auto;
-  max-width: 132px;
+  width: 36px;
+  height: 36px;
+  flex: none;
+  border-radius: 9px;
+  background: #fff;
   object-fit: contain;
-  object-position: left center;
-  opacity: .72;
-  transition: opacity .2s ease, filter .2s ease;
-}
-.companies__item:hover .companies__logo { opacity: 1; }
-
-/* Dark mode: most brand logos are dark-on-transparent, so lift them.
-   A logo that already reads well on dark opts out with class="is-light". */
-:root[data-theme="dark"] .companies__logo:not(.is-light) {
-  filter: brightness(0) invert(1);
-  opacity: .68;
-}
-:root[data-theme="dark"] .companies__item:hover .companies__logo:not(.is-light) { opacity: .95; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .companies__logo:not(.is-light) {
-    filter: brightness(0) invert(1);
-    opacity: .68;
-  }
-  :root:not([data-theme="light"]) .companies__item:hover .companies__logo:not(.is-light) { opacity: .95; }
+  box-shadow: inset 0 0 0 1px rgba(20, 22, 26, .07);
 }
 
 /* --- Work cards ---------------------------------------------------------- */
